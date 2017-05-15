@@ -9,6 +9,17 @@ angular.module('myApp.view1', ['ngRoute'])
         });
     }])
 
+
+    .filter('filterType', function () {
+      let tmp = new Array();
+      return function(pokemons, type) {
+        if (type && type != ''){
+                return pokemons.filter(p => p.type.indexOf(type) != -1);
+            }
+        return pokemons;
+      }
+    })
+
     .controller('View1Ctrl', function ($scope) {
         $scope.pokemons = [{
             "abilities": [
@@ -121,5 +132,15 @@ angular.module('myApp.view1', ['ngRoute'])
         }];
 
         $scope.myOrderProperty = 'id';
+
+        $scope.alertName = function(content) {
+          alert(content);
+        }
+        $scope.setClass = function(pokemonType) {
+            const colorClasses = { water: 'blue', fire: 'red', grass: 'green' };
+            for (let i in colorClasses) {
+              if (pokemonType.indexOf(i) >= 0)  return colorClasses[i];
+            }
+        }
 
     });
